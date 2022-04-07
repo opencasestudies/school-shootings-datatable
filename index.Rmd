@@ -1,0 +1,27 @@
+---
+title: ""
+subtitle: " "
+output: html_document
+---
+
+```{r, echo=FALSE, include=FALSE}
+library(magrittr)
+library(tidyverse)
+load(here::here("shooting_data_wrangled_pre_map.rda"))
+shooting_data <-shooting_data_wrangled_pre_map
+```
+
+```{r, echo=FALSE, include=TRUE}
+DT_table <-
+  shooting_data %>%
+  dplyr::select(Date,
+                School,
+                City,
+                State,
+                `Killed (includes shooter)`,
+                `Narrative (Detailed Summary/ Background)`) %>%
+  rename("Deaths" = `Killed (includes shooter)`) %>%
+  rename("Narrative" = `Narrative (Detailed Summary/ Background)`)
+
+DT::datatable(DT_table)
+```
